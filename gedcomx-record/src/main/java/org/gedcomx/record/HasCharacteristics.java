@@ -31,12 +31,12 @@ public interface HasCharacteristics {
    *
    * @return The characteristics of a record resource.
    */
-  List<Characteristic> getCharacteristics();
+  List<Fact> getFacts();
 
   /**
    * The characteristic fields on this persona.
    *
-   * @param characteristics The characteristic fields on this persona.
+   * @param facts The characteristic fields on this persona.
    */
-  void setCharacteristics(List<Characteristic> characteristics);
+  void setFacts(List<Fact> facts);
 }

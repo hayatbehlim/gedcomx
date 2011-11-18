@@ -15,97 +15,72 @@
  */
 package org.gedcomx.record;
 
-import org.codehaus.enunciate.ClientName;
+
 import org.codehaus.enunciate.XmlQNameEnumUtil;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 import org.codehaus.jackson.map.annotate.JsonTypeIdResolver;
-import org.gedcomx.common.GenealogicalResource;
 import org.gedcomx.rt.CommonNamespaces;
-import org.gedcomx.rt.RDFSubClassOf;
 import org.gedcomx.rt.RDFSubPropertyOf;
 import org.gedcomx.rt.XmlTypeIdResolver;
-import org.gedcomx.types.EventType;
+import org.gedcomx.types.FactType;
 import org.gedcomx.types.TypeReference;
 import org.gedcomx.types.Typed;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * A recorded event.
+ * A field specifying a fact about a persona or relationship, such as events or characteristics.
  */
-@ClientName("EventInfo")
 @JsonTypeInfo ( use =JsonTypeInfo.Id.CUSTOM, property = XmlTypeIdResolver.TYPE_PROPERTY_NAME)
 @JsonTypeIdResolver (XmlTypeIdResolver.class)
-@XmlType( name = "Event", propOrder = { "type", "date", "place" } )
-@RDFSubClassOf ( CommonNamespaces.DUBLIN_CORE_TYPE_NAMESPACE + "Event" )
-public class Event extends GenealogicalResource implements Typed<EventType> {
+@XmlType ( name = "Fact" )
+public class Fact extends Field implements Typed<FactType> {
 
-  private TypeReference<EventType> type;
-  private Boolean primary;
+  private TypeReference<FactType> type;
   private Date date;
   private Place place;
 
   /**
-   * The type of the event.
+   * The type of the characteristic.
    *
-   * @return The type of the event.
+   * @return The type of the characteristic.
    */
   @XmlElement (namespace = CommonNamespaces.RDF_NAMESPACE)
-  public TypeReference<EventType> getType() {
+  public TypeReference<FactType> getType() {
     return type;
   }
 
   /**
-   * The type of the event.
+   * The type of the characteristic.
    *
-   * @param type The type of the event.
+   * @param type The type of the characteristic.
    */
-  public void setType(TypeReference<EventType> type) {
+  public void setType(TypeReference<FactType> type) {
     this.type = type;
   }
 
   /**
-   * The enum referencing the known type of the event, or {@link org.gedcomx.types.FactType#OTHER} if not known.
+   * The enum referencing the known type of the characteristic, or {@link org.gedcomx.types.FactType#OTHER} if not known.
    *
-   * @return The enum referencing the known type of the event, or {@link org.gedcomx.types.FactType#OTHER} if not known.
+   * @return The enum referencing the known type of the characteristic, or {@link org.gedcomx.types.FactType#OTHER} if not known.
    */
   @XmlTransient
   @JsonIgnore
-  public org.gedcomx.types.EventType getKnownType() {
-    return getType() == null ? null : XmlQNameEnumUtil.fromURI(getType().getType(), org.gedcomx.types.EventType.class);
+  public FactType getKnownType() {
+    return getType() == null ? null : XmlQNameEnumUtil.fromURI(getType().getType(), FactType.class);
   }
 
   /**
-   * Set the type of this event from a known enumeration of event types.
+   * Set the type of this characteristic from a known enumeration of types.
    *
-   * @param knownType the event type.
+   * @param knownType The known type.
    */
   @JsonIgnore
-  public void setKnownType(org.gedcomx.types.EventType knownType) {
-    setType(knownType == null ? null : new TypeReference<EventType>(knownType));
-  }
-
-  /**
-   * Indicator for whether this is the primary event for this record. For example, the primary event for a birth certificate would be the birth event.
-   *
-   * @return Indicator for whether this is the primary event for this record. For example, the primary event for a birth certificate would be the birth event.
-   */
-  @XmlAttribute
-  public Boolean getPrimary() {
-    return primary;
-  }
-
-  /**
-   * Indicator for whether this is the primary event for this record. For example, the primary event for a birth certificate would be the birth event.
-   *
-   * @param primary Indicator for whether this is the primary event for this record. For example, the primary event for a birth certificate would be the birth event.
-   */
-  public void setPrimary(Boolean primary) {
-    this.primary = primary;
+  public void setKnownType(FactType knownType) {
+    setType(knownType == null ? null : new TypeReference<FactType>(knownType));
   }
 
   /**
@@ -145,5 +120,4 @@ public class Event extends GenealogicalResource implements Typed<EventType> {
   public void setPlace(Place place) {
     this.place = place;
   }
-
 }

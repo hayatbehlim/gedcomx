@@ -41,13 +41,12 @@ import java.util.List;
 @JsonElementWrapper ( name = "records" )
 @JsonTypeInfo ( use =JsonTypeInfo.Id.CUSTOM, property = XmlTypeIdResolver.TYPE_PROPERTY_NAME)
 @JsonTypeIdResolver (XmlTypeIdResolver.class)
-@XmlType ( name = "Record", propOrder = { "type", "personas", "events", "relationships", "fields" } )
+@XmlType ( name = "Record", propOrder = { "type", "personas", "relationships", "fields" } )
 public class Record extends GenealogicalEntity implements Typed<RecordType>, PersistentIdentifiable {
 
   private String lang;
   private TypeReference<RecordType> type;
   private List<Persona> personas;
-  private List<Event> events;
   private List<Relationship> relationships;
   private List<RecordField> fields;
 
@@ -130,28 +129,6 @@ public class Record extends GenealogicalEntity implements Typed<RecordType>, Per
   @JsonProperty("personas")
   public void setPersonas(List<Persona> personas) {
     this.personas = personas;
-  }
-
-  /**
-   * The events of the record.
-   *
-   * @return The events of the record.
-   */
-  @XmlElement(name = "event")
-  @JsonProperty("events")
-  @JsonName("events")
-  public List<Event> getEvents() {
-    return events;
-  }
-
-  /**
-   * The events of the record.
-   *
-   * @param events The events of the record.
-   */
-  @JsonProperty("events")
-  public void setEvents(List<Event> events) {
-    this.events = events;
   }
 
   /**

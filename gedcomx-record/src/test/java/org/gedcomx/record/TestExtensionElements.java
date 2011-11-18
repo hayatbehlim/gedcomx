@@ -19,7 +19,7 @@ public class TestExtensionElements {
 
   public void testCharacteristicTypes() throws Exception {
 
-    Characteristic ch = new Characteristic();
+    Fact ch = new Fact();
     ch.setId("id");
 
     Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();

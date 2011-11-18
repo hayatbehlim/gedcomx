@@ -33,7 +33,7 @@ import java.util.List;
  */
 @JsonTypeInfo ( use =JsonTypeInfo.Id.CUSTOM, property = XmlTypeIdResolver.TYPE_PROPERTY_NAME)
 @JsonTypeIdResolver (XmlTypeIdResolver.class)
-@XmlType ( name = "Persona", propOrder = { "persistentId", "alternateIds", "gender", "age", "names", "eventRoles", "characteristics" } )
+@XmlType ( name = "Persona", propOrder = { "persistentId", "alternateIds", "gender", "age", "names", "facts"} )
 public class Persona extends GenealogicalResource implements PersistentIdentifiable, HasCharacteristics, Weighted {
 
   private Boolean principal;
@@ -42,8 +42,7 @@ public class Persona extends GenealogicalResource implements PersistentIdentifia
   private Gender gender;
   private Age age;
   private java.util.List<Name> names;
-  private java.util.List<EventRole> eventRoles = new ArrayList<EventRole>();
-  private java.util.List<Characteristic> characteristics = new ArrayList<Characteristic>();
+  private java.util.List<Fact> facts = new ArrayList<Fact>();
 
   /**
    * A long-term, persistent, globally unique identifier for this persona.
@@ -152,40 +151,18 @@ public class Persona extends GenealogicalResource implements PersistentIdentifia
   @XmlElement(name="characteristic")
   @JsonProperty("characteristics")
   @JsonName("characteristics")
-  public List<Characteristic> getCharacteristics() {
-    return characteristics;
+  public List<Fact> getFacts() {
+    return facts;
   }
 
   /**
    * The characteristic fields on this persona.
    *
-   * @param characteristics The characteristic fields on this persona.
+   * @param facts The characteristic fields on this persona.
    */
   @JsonProperty("characteristics")
-  public void setCharacteristics(List<Characteristic> characteristics) {
-    this.characteristics = characteristics;
-  }
-
-  /**
-   * The roles this persona plays in the events of the record.
-   *
-   * @return The roles this persona plays in the events of the record.
-   */
-  @XmlElement(name = "eventRole")
-  @JsonProperty("eventRoles")
-  @JsonName("eventRoles")
-  public List<EventRole> getEventRoles() {
-    return eventRoles;
-  }
-
-  /**
-   * The roles this persona plays in the events of the record.
-   *
-   * @param eventRoles The roles this persona plays in the events of the record.
-   */
-  @JsonProperty("eventRoles")
-  public void setEventRoles(List<EventRole> eventRoles) {
-    this.eventRoles = eventRoles;
+  public void setFacts(List<Fact> facts) {
+    this.facts = facts;
   }
 
   /**
